@@ -1,2 +1,19 @@
-# next-minesweeper
-A next.js implementation of Minesweeper
+This is a Minesweeper implementation using Next.js(https://nextjs.org/).
+
+## System Requirements
+
+Node.js 10.13 or later
+MacOS, Windows (including WSL), and Linux are supported
+
+## Getting Started
+
+First, run the development server:
+
+```bash
+npm install
+npm run dev
+# or
+yarn dev        
+```
+
+Open [http://localhost:3000](http://localhost:3000) to start the application.
