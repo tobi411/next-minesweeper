@@ -1,17 +1,11 @@
 export const actionTypes = {
-    HYDRATE: 'HYDRATE',
-    FAILURE: 'FAILURE',
-    SET_NAME: 'SET_NAME'
+  HYDRATE: 'HYDRATE',
+  FAILURE: 'FAILURE',
+}
+
+export function failure(error) {
+  return {
+    type: actionTypes.FAILURE,
+    error,
   }
-  
-  export function failure(error) {
-    return {
-      type: actionTypes.FAILURE,
-      error,
-    }
-  }
-  
-  export function setName(name: string) {
-    return { type: actionTypes.SET_NAME, name}
-  }
-  
+}

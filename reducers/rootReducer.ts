@@ -1,25 +1,26 @@
 import { actionTypes } from './../actions/actions'
 import { HYDRATE } from 'next-redux-wrapper'
+import { combineReducers } from 'redux';
 
-const initialState = {
-    name: "Tobi Kehinde"
-}
+import gameReducer from "./gameReducer";
 
-function rootReducer(state = initialState, action) {
+const initialState = {}
+
+
+function nextReducer(state = initialState, action) {
     switch (action.type) {
         case HYDRATE: {
             return { ...state, ...action.payload }
         }
 
-        case actionTypes.SET_NAME:
-            return {
-                ...state,
-                ...{ name: action.name },
-            }
-
         default:
             return state
     }
 }
+
+const rootReducer = combineReducers({
+    nextState: nextReducer,
+    gameState: gameReducer
+})
 
 export default rootReducer 

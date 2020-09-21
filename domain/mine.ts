@@ -1,4 +1,4 @@
-import Position from "./position";
+import Position from "../types/position";
 
 class Mine {
     position: Position
