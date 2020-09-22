@@ -1,12 +1,17 @@
 import CellContentType from "./../../types/cellContentType";
 import Cell from './../../types/cell';
 import BoardCell from "./../boardCell";
+import Position from "./../../types/position";
 
 class BoardCellDecorator implements Cell {
     protected cell: BoardCell;
 
     constructor(cell: BoardCell) {
         this.cell = cell;
+    }
+
+    getPosition(): Position {
+        return this.cell.getPosition();
     }
 
     getType(): CellContentType {

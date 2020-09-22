@@ -4,16 +4,17 @@ import Cell from './../types/cell';
 
 class BoardCell implements Cell {
     protected isLightTheme: boolean;
-    protected isHidden: boolean;
     protected position: Position;
     protected value: string;
-    protected type: CellContentType
+    protected type: CellContentType;
+    protected isHidden: boolean;
+    protected isFlagged: boolean;
 
     constructor(position: Position) {
         this.position = position;
         this.isHidden = true;
         this.isLightTheme = this.getIsLightTheme(position);
-        this.value = '';
+        this.value = '_';
         this.type = CellContentType.EMPTY;
     }
 
@@ -43,6 +44,18 @@ class BoardCell implements Cell {
 
     setType(t: CellContentType) {
         this.type = t;
+    }
+
+    setFlag() {
+        this.isFlagged = true;
+    }
+
+    removeFlag() {
+        this.isFlagged = false;
+    }
+
+    getIsFlagged() {
+        return this.isFlagged;
     }
 }
 

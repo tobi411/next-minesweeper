@@ -5,10 +5,8 @@ import HintCell from "./../domain/decorators/hintCell"
 import Position from "./../types/position";
 import ICell from "./../types/cell";
 
-let position: Position = {
-    x: 0,
-    y: 0
-}
+let position = new Position(0,0);
+
 function Cell() {
     let cell = new BoardCell(position)
     let cell0 = new BoardCell(position);
@@ -25,7 +23,8 @@ function Cell() {
         <Row>
             <Col>
                 {cells.map((c: ICell, i: number) => (
-                    <p key={i}>This is a cell. It is a {c.getType()} cell and its value is {c.getValue()}</p>
+                    <p key={i}>This is a cell. It is a {c.getType()} cell,
+                     its value is {c.getValue()} and it's positioned at {`${c.getPosition().x}, ${c.getPosition().y}`}</p>
                 ))}
             </Col>
         </Row>
