@@ -9,6 +9,14 @@ class Level {
         this.numMines= numMines;
         this.numSideCells = numSideCells;
     }
+
+    getNumSideCells(): number {
+        return this.numSideCells;
+    }
+
+    getNumMines(): number {
+        return this.numMines;
+    }
 }
 
 export default Level
