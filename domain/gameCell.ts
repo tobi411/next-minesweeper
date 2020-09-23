@@ -1,8 +1,8 @@
 import Position from "../types/position";
 import CellContentType from "../types/cellContentType";
-import Cell from './../types/cell';
+import ICell, { ICellProps } from '../types/cell';
 
-class BoardCell implements Cell {
+class BoardCell implements ICell {
     protected isLightTheme: boolean;
     protected position: Position;
     protected value: string;
@@ -16,6 +16,7 @@ class BoardCell implements Cell {
         this.isLightTheme = this.getIsLightTheme(position);
         this.value = '_';
         this.type = CellContentType.EMPTY;
+        this.isFlagged = false;
     }
 
     getPosition(): Position {
@@ -23,7 +24,7 @@ class BoardCell implements Cell {
     }
 
     getIsLightTheme(position: Position): boolean {
-        return (position.x + position.y) % 2 == 0
+        return (position.x + position.y) % 2 === 0
     }
 
     getIsHidden(): boolean {
@@ -56,6 +57,20 @@ class BoardCell implements Cell {
 
     getIsFlagged() {
         return this.isFlagged;
+    }
+
+    parseToJSON(): ICellProps {
+        return {
+            isLightTheme: this.isLightTheme,
+            position: {
+                x: this.position.x,
+                y: this.position.y
+            },
+            value: this.value,
+            type: this.type,
+            flagged: this.isFlagged,
+            isHidden: this.isHidden,
+        }
     }
 }
 

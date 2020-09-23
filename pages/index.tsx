@@ -1,8 +1,8 @@
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
-import { Container, Row, Card, Button } from 'react-bootstrap'
+import { Container, Row, Col, Card, Button } from 'react-bootstrap'
 import { useSelector } from "react-redux";
-import Board from "../components/board";
+import Game from "../components/game";
 
 export default function Home() {
 
@@ -10,7 +10,7 @@ export default function Home() {
 
   return (
     <div className={styles.container}>
-      <Container>
+      <Container fluid>
         <Head>
           <title>Minesweeper</title>
           <link rel="icon" href="/favicon.ico" />
@@ -19,15 +19,15 @@ export default function Home() {
           <Row className="justify-content-md-center">
             <h1 className={styles.title}>
               Minesweeper
-          </h1>
+            </h1>
           </Row>
           <Row className="justify-content-md-center">
             <p>
               Developed by {gameState.name}
             </p>
           </Row>
-          <Row>
-            <Board />
+          <Row className="justify-content-md-center">
+              <Game />
           </Row>
         </Container>
       </Container>

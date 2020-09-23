@@ -1,0 +1,31 @@
+.container {
+  border: 2px solid black;
+  margin-top: 1em;
+  text-align: center;
+}
+
+.row {
+  height: 2em;
+}
+
+.baseCell {
+  display: inline-block;
+  width: 2em;
+  border: outset 2px white;
+}
+
+.green {
+  background-color: green;
+}
+
+.light_green {
+  background-color: lightgreen;
+}
+
+.salmon {
+  background-color: salmon;
+}
+
+.light_salmon {
+  background-color: lightsalmon;
+}

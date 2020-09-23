@@ -1,32 +1,73 @@
-import Level from "./../domain/level";
-import Position from "./../types/position"
-import BoardCell from "./boardCell";
-import CellContentType from './../types/cellContentType';
+import Level from "./level";
+import Position from "../types/position"
+import BoardCell from "./gameCell";
+import MineCell from "./decorators/mineCell";
+import CellContentType from '../types/cellContentType';
+import ICell from '../types/cell';
 
-class Board {
+class GameBoard {
 
     private difficulty: Level;
-    private cells: BoardCell[][];
+    private cells: ICell[][];
 
     constructor(difficulty: Level) {
         this.difficulty = difficulty;
+        this.cells = [];
+    }
+
+    initializeBoard() {
+        this.placeEmptyCells();
     }
 
     isWithinBoard(position: Position): boolean {
         let boardLength = this.difficulty.getNumSideCells();
-        // let cellPosition = cell.getPosition();
 
         return (position.x >= 0 && position.x < boardLength)
             && (position.y >= 0 && position.y < boardLength);
     }
 
-    getCell(position: Position): BoardCell {
+    getCells() {
+        return this.cells;
+    }
+    
+    getCell(position: Position): ICell {
         return this.cells[position.y][position.x];
+    }
+
+    placeMines(positions: Position[]) {
+        console.log(positions);
+        let numPositions = positions.length;
+
+        let boardLength = this.difficulty.getNumSideCells();
+
+        for (let i = 0; i < boardLength; i++) {
+            for (let j = 0; j < boardLength;) {
+                let mine = new MineCell(new BoardCell(positions[i]));
+                this.cells[positions[i].x][positions[i].y] = mine;
+            }
+        }
+    }
+    
+    placeHintCell() {
+        
+    }
+    
+    placeEmptyCells() {
+        let boardLength = this.difficulty.getNumSideCells();
+    
+        for (let i = 0; i < boardLength; i++) {
+            this.cells[i] = [];
+            for (let j = 0; j < boardLength; j++) {
+                let position = new Position(j, i);
+                let emptyCell = new BoardCell(position);
+                this.cells[i].push(emptyCell)
+            }
+        }
     }
 
     isMine(position: Position): boolean {
         let cell = this.getCell(position);
-        return cell.getType() == CellContentType.MINE;
+        return cell.getType() === CellContentType.MINE;
     }
 
     countAdjacentMines(position: Position): number {
@@ -82,8 +123,8 @@ class Board {
 
         //----------- Check South-East ------------ 
         let adjSouthEastPosition = position.getAdjSouthEastPosition();
-        if (this.isWithinBoard(adjSouthEastPosition) == true) {
-            if (this.isMine(adjSouthEastPosition) == true) {
+        if (this.isWithinBoard(adjSouthEastPosition)) {
+            if (this.isMine(adjSouthEastPosition)) {
                 count++;
             }
         }
@@ -123,6 +164,15 @@ class Board {
 
         return (count);
     }
+
+    printToJSON() {
+        let boardLength = this.difficulty.getNumSideCells();
+        for (let i = 0; i < boardLength; i++) {
+            for (let j = 0; j < boardLength; j++) {
+
+            }
+        }
+    }
 }
 
-export default Board
+export default GameBoard

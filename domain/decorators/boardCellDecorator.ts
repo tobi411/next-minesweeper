@@ -1,12 +1,12 @@
 import CellContentType from "./../../types/cellContentType";
-import Cell from './../../types/cell';
-import BoardCell from "./../boardCell";
+import ICell from './../../types/cell';
+import GameCell from "../gameCell";
 import Position from "./../../types/position";
 
-class BoardCellDecorator implements Cell {
-    protected cell: BoardCell;
+class BoardCellDecorator implements ICell {
+    protected cell: GameCell;
 
-    constructor(cell: BoardCell) {
+    constructor(cell: GameCell) {
         this.cell = cell;
     }
 
