@@ -1,7 +1,7 @@
 import CellContentType from "./../../types/cellContentType";
 import ICell from './../../types/cell';
 import GameCell from "../gameCell";
-import Position from "./../../types/position";
+import Position from "../position";
 
 class BoardCellDecorator implements ICell {
     protected cell: GameCell;
@@ -23,7 +23,11 @@ class BoardCellDecorator implements ICell {
     }
 
     setValue(str: string) {
-        return this.cell.setValue(str);
+        this.cell.setValue(str);
+    }
+
+    parseToJSON() {
+        return this.cell.parseToJSON()
     }
 }
 

@@ -4,13 +4,15 @@ import BoardCellDecorator from './boardCellDecorator';
 
 class HintCell extends BoardCellDecorator {
 
-    constructor(cell: GameCell) {
+    constructor(cell: GameCell, value: string) {
         super(cell);
-        cell.setType(CellContentType.HINT)
+        cell.setType(CellContentType.HINT);
+        this.setValue(value);
+        // cell.setIsHidden(false)
     }
 
     setValue(str: string) {
-        return this.cell.setValue(str)
+        this.cell.setValue(str);
     }
 }
 

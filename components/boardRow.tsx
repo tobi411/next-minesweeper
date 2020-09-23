@@ -20,7 +20,7 @@ function BoardRow(props: IBoardRow) {
         <div className={styles.row}>
             {
                 row.map((r, index) => {
-                    return <BoardCell data={r} key={`cell-${index+1}`} />
+                    return <BoardCell data={r.parseToJSON()} key={`cell-${index+1}`} />
                 })
             }
         </div>

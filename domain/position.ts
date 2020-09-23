@@ -1,8 +1,3 @@
-// interface Position {
-//     readonly x: number;
-//     readonly y: number;
-// }
-
 class Position {
     x: number;
     y: number;

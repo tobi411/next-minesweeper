@@ -7,10 +7,10 @@ import HintCell from "./../domain/decorators/hintCell"
 import ICell from "./../types/cell";
 import Position from "./../types/position";
 import styles from "./../styles/board.module.css";
-import { BsFlagFill  } from 'react-icons/bs';
-import { JsxElement } from "typescript";
+import { BsFlagFill } from 'react-icons/bs';
+import CellContentType from '../types/cellContentType';
+import Hint from "./hint";
 
-// let position = new Position(0,0);
 interface IBoardCell {
     data: any
 }
@@ -27,8 +27,12 @@ function Cell(props: IBoardCell) {
         backgroundCSS = data.isLightTheme ? styles.light_salmon : styles.salmon;
     }
 
-    if (data.isFlagged) {
+    if (data.isFlagged === true) {
         content = <BsFlagFill color={'crimson'} />
+    }
+
+    if (data.type === CellContentType.HINT) {
+        content = <Hint data={data.value} />
     }
 
     return (

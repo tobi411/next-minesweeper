@@ -7,14 +7,15 @@ import MineCell from "./../domain/decorators/mineCell"
 import HintCell from "./../domain/decorators/hintCell"
 import ICell from "./../types/cell";
 import styles from './../styles/board.module.css';
+import config from "./../config"
 
 function Board() {
-    let level = new Level('medium', 40, 16);
-    let board = new GameBoard(level);
+    let board = new GameBoard(config.hard);
     board.initializeBoard();
 
     let cells = board.getCells();
-    console.log(cells)
+    console.log(cells);
+
     return (
         <div className={styles.container}>
             {

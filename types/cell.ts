@@ -1,11 +1,12 @@
 import CellContentType from './cellContentType';
-import Position from "./position";
+import Position from "../domain/position";
 
 export default interface ICell {
     getPosition(): Position,
     getType(): CellContentType,
     getValue(): string,
     setValue(str: string): void,
+    parseToJSON(): ICellProps,
 }
 
 export interface ICellProps {
@@ -16,6 +17,6 @@ export interface ICellProps {
     },
     value: string,
     type: CellContentType,
-    flagged: boolean,
+    isFlagged: boolean,
     isHidden: boolean,
 }

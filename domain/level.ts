@@ -1,12 +1,13 @@
+//TODO Delete this class
 class Level {
     private name: string;
     private numMines: number;
     private numSideCells: number;
-    
+
 
     constructor(name: string, numMines: number, numSideCells: number) {
         this.name = name;
-        this.numMines= numMines;
+        this.numMines = numMines;
         this.numSideCells = numSideCells;
     }
 
@@ -16,6 +17,10 @@ class Level {
 
     getNumMines(): number {
         return this.numMines;
+    }
+
+    getName(): string {
+        return this.name;
     }
 }
 

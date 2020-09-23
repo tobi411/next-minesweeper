@@ -1,7 +1,12 @@
 import { actionTypes } from './../actions/gameActions'
-    
+import config from "./../config";
+
 const initialState = {
-    name: "Tobi Kehinde"
+    name: "Tobi Kehinde",
+    gameOver: false,
+    difficulty: 'medium',
+    bombs: config['medium'].bombNum,
+    timer: 0
 }
 
 function gameReducer(state = initialState, action) {

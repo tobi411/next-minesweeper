@@ -1,16 +1,18 @@
-import Level from "./level";
-import Position from "../types/position"
+// import Level from "./level";
+import config, { IConfig } from "./../config";
+import Position from "./position"
 import BoardCell from "./gameCell";
 import MineCell from "./decorators/mineCell";
+import HintCell from "./decorators/hintCell";
 import CellContentType from '../types/cellContentType';
 import ICell from '../types/cell';
 
 class GameBoard {
 
-    private difficulty: Level;
+    private difficulty: IConfig;
     private cells: ICell[][];
 
-    constructor(difficulty: Level) {
+    constructor(difficulty: IConfig) {
         this.difficulty = difficulty;
         this.cells = [];
     }
@@ -20,50 +22,59 @@ class GameBoard {
     }
 
     isWithinBoard(position: Position): boolean {
-        let boardLength = this.difficulty.getNumSideCells();
+        let boardWidth = this.getBoardWidth();
+        let boardHeight = this.getBoardHeight();
 
-        return (position.x >= 0 && position.x < boardLength)
-            && (position.y >= 0 && position.y < boardLength);
+        return (position.x >= 0 && position.x < boardWidth)
+            && (position.y >= 0 && position.y < boardHeight);
+    }
+
+    getBoardWidth(): number {
+        return this.difficulty.boardWidth;
+    }
+
+    getBoardHeight(): number {
+        return this.difficulty.boardHeight;
     }
 
     getCells() {
         return this.cells;
     }
-    
+
     getCell(position: Position): ICell {
         return this.cells[position.y][position.x];
     }
 
-    placeMines(positions: Position[]) {
-        console.log(positions);
-        let numPositions = positions.length;
-
-        let boardLength = this.difficulty.getNumSideCells();
-
-        for (let i = 0; i < boardLength; i++) {
-            for (let j = 0; j < boardLength;) {
-                let mine = new MineCell(new BoardCell(positions[i]));
-                this.cells[positions[i].x][positions[i].y] = mine;
-            }
-        }
-    }
-    
-    placeHintCell() {
-        
-    }
-    
     placeEmptyCells() {
-        let boardLength = this.difficulty.getNumSideCells();
-    
-        for (let i = 0; i < boardLength; i++) {
+        let boardWidth = this.getBoardWidth();
+        let boardHeight = this.getBoardHeight();
+
+        for (let i = 0; i < boardHeight; i++) {
             this.cells[i] = [];
-            for (let j = 0; j < boardLength; j++) {
+            for (let j = 0; j < boardWidth; j++) {
                 let position = new Position(j, i);
                 let emptyCell = new BoardCell(position);
                 this.cells[i].push(emptyCell)
             }
         }
     }
+
+    placeMines(positions: Position[]) {
+        let numPositions = positions.length;
+
+        for (let i = 0; i < numPositions; i++) {
+            let mine = new MineCell(new BoardCell(positions[i]));
+            this.cells[positions[i].y][positions[i].x] = mine;
+        }
+    }
+
+    placeHintCell(position: Position, value: string) {
+        if (this.isWithinBoard(position)) {
+            let hint = new HintCell(new BoardCell(position), value);
+            this.cells[position.y][position.x] = hint;
+        }
+    }
+
 
     isMine(position: Position): boolean {
         let cell = this.getCell(position);
@@ -166,9 +177,10 @@ class GameBoard {
     }
 
     printToJSON() {
-        let boardLength = this.difficulty.getNumSideCells();
-        for (let i = 0; i < boardLength; i++) {
-            for (let j = 0; j < boardLength; j++) {
+        let boardHeight = this.getBoardHeight();
+        let boardWidth = this.getBoardWidth();
+        for (let i = 0; i < boardHeight; i++) {
+            for (let j = 0; j < boardWidth; j++) {
 
             }
         }

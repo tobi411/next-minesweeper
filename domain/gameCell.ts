@@ -1,4 +1,4 @@
-import Position from "../types/position";
+import Position from "./position";
 import CellContentType from "../types/cellContentType";
 import ICell, { ICellProps } from '../types/cell';
 
@@ -39,8 +39,12 @@ class BoardCell implements ICell {
         return this.value;
     }
 
+    getIsFlagged() {
+        return this.isFlagged;
+    }
+
     setValue(val: string) {
-        return this.value = val;
+        this.value = val;
     }
 
     setType(t: CellContentType) {
@@ -51,12 +55,12 @@ class BoardCell implements ICell {
         this.isFlagged = true;
     }
 
-    removeFlag() {
-        this.isFlagged = false;
+    setIsHidden(hidden: boolean) {
+        this.isHidden = hidden;
     }
 
-    getIsFlagged() {
-        return this.isFlagged;
+    removeFlag() {
+        this.isFlagged = false;
     }
 
     parseToJSON(): ICellProps {
@@ -68,7 +72,7 @@ class BoardCell implements ICell {
             },
             value: this.value,
             type: this.type,
-            flagged: this.isFlagged,
+            isFlagged: this.isFlagged,
             isHidden: this.isHidden,
         }
     }

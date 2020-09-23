@@ -5,12 +5,12 @@
 }
 
 .row {
-  height: 2em;
+  height: 1.5em;
 }
 
 .baseCell {
-  display: inline-block;
-  width: 2em;
+  display: table-cell;
+  width: 1.5em;
   border: outset 2px white;
 }
 
@@ -28,4 +28,8 @@
 
 .light_salmon {
   background-color: lightsalmon;
+}
+
+.hint {
+  font-weight: 700;
 }
