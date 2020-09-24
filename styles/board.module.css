@@ -1,6 +1,13 @@
+.header_container {
+  padding: 1em;
+  background-color: darkgreen;
+  color: #efefef;
+  border: 2px black solid;
+  border-bottom: none;
+}
+
 .container {
   border: 2px solid black;
-  margin-top: 1em;
   text-align: center;
 }
 
@@ -32,4 +39,17 @@
 
 .hint {
   font-weight: 700;
+}
+
+.select {
+  text-transform: capitalize;
+  padding: 4px;
+}
+
+.header_icon {
+  padding: 7px;
+}
+
+.header_button {
+  cursor: pointer;
 }

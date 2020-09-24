@@ -22,7 +22,7 @@ export default function Home() {
             </h1>
           </Row>
           <Row className="justify-content-md-center">
-            <p>
+            <p className={styles.subtitle}>
               Developed by {gameState.name}
             </p>
           </Row>

@@ -14,7 +14,7 @@ function Board() {
     board.initializeBoard();
 
     let cells = board.getCells();
-    console.log(cells);
+    // console.log(cells);
 
     return (
         <div className={styles.container}>
