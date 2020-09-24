@@ -63,7 +63,7 @@ class BoardCell implements ICell {
         this.isFlagged = false;
     }
 
-    parseToJSON(): ICellProps {
+    printState(): ICellProps {
         return {
             isLightTheme: this.isLightTheme,
             position: {

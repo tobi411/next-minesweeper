@@ -27,7 +27,7 @@ export default function Home() {
             </p>
           </Row>
           <Row className="justify-content-md-center">
-              <Game />
+              <Game data={gameState}/>
           </Row>
         </Container>
       </Container>

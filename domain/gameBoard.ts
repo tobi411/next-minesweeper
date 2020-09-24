@@ -1,4 +1,3 @@
-// import Level from "./level";
 import config, { IConfig } from "./../config";
 import Position from "./position"
 import BoardCell from "./gameCell";
@@ -6,15 +5,19 @@ import MineCell from "./decorators/mineCell";
 import HintCell from "./decorators/hintCell";
 import CellContentType from '../types/cellContentType';
 import ICell from '../types/cell';
+import { IGameBoardState } from '../types/game';
+import { ICellProps } from './../types/cell';
 
 class GameBoard {
 
     private difficulty: IConfig;
     private cells: ICell[][];
+    private lastUpdated: Date;
 
     constructor(difficulty: IConfig) {
         this.difficulty = difficulty;
         this.cells = [];
+        this.initializeBoard();
     }
 
     initializeBoard() {
@@ -176,14 +179,25 @@ class GameBoard {
         return (count);
     }
 
-    printToJSON() {
+    printState(): IGameBoardState {
         let boardHeight = this.getBoardHeight();
         let boardWidth = this.getBoardWidth();
+        let currCells: ICellProps[][] = [];
+        
         for (let i = 0; i < boardHeight; i++) {
+            currCells[i] = [];
             for (let j = 0; j < boardWidth; j++) {
-
+                let currCell = this.cells[i][j];
+                currCells[i].push(currCell.printState())
             }
         }
+
+        let gameState = {
+            lastUpdated: new Date(),
+            cells: currCells
+        }
+
+        return gameState;
     }
 }
 

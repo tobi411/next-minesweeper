@@ -14,29 +14,26 @@ interface IBoardHeader {
 function BoardHeader(props: IBoardHeader) {
     return (
         <div className={styles.header_container}>
-            <Container>
-                <Row>
-                    <Col xs={4}>
-                        <select name="difficulty" defaultValue="medium" className={styles.select}>
-                            {
-                                Object.keys(config).map((key, index) => {
+                <div className={'no_padding'}>
+                    <select name="difficulty" defaultValue="medium" className={styles.select}>
+                        {
+                            Object.keys(config).map((key, index) => {
 
-                                    return <option key={`select-option-${index}`} value={key}>{key}</option>
-                                })
-                            }
-                        </select>
-                    </Col>
-                    <Col xs={4} style={{ textAlign: 'center' }}>
-                        <span className={styles.header_icon}><Counter data={27} /></span>
-                        <span className={styles.header_icon}><Timer data={27} /></span>
-                    </Col>
-                    <Col xs={4} style={{ textAlign: 'right' }}>
-                        <span className={`${styles.header_button} ${styles.header_icon}`}><GiSpeaker size={'1.6rem'} /></span>
-                        <span className={`${styles.header_button} ${styles.header_icon}`}><RiShareFill size={'1.6rem'} /></span>
-                        <span className={`${styles.header_button} ${styles.header_icon}`} onClick={() => console.log('testing')}><ImCancelCircle size={'1.6rem'} /></span>
-                    </Col>
-                </Row>
-            </Container>
+                                return <option key={`select-option-${index}`} value={key}>{key}</option>
+                            })
+                        }
+                    </select>
+                </div>
+                <div style={{ textAlign: 'center' }} className={'no_padding'}>
+                    <span className={styles.header_icon }><Counter data={27} /></span>
+                    <span className={styles.header_icon}><Timer data={27} /></span>
+                </div>
+                <div style={{ textAlign: 'right' }} className={'no_padding'}>
+                    <span className={`${styles.header_button} ${styles.header_icon}`}><GiSpeaker size={'1.6rem'} /></span>
+                    <span className={`${styles.header_button} ${styles.header_icon}`}><RiShareFill size={'1.6rem'} /></span>
+                    <span className={`${styles.header_button} ${styles.header_icon}`} onClick={() => console.log('testing')}><ImCancelCircle size={'1.6rem'} /></span>
+                </div>
+        
         </div>
     )
 }

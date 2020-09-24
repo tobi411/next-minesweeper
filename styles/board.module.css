@@ -4,11 +4,14 @@
   color: #efefef;
   border: 2px black solid;
   border-bottom: none;
+  display: flex;
+  justify-content: space-between;
 }
 
-.container {
+.board_container {
   border: 2px solid black;
   text-align: center;
+  background-color: darkgreen;
 }
 
 .row {
@@ -47,7 +50,7 @@
 }
 
 .header_icon {
-  padding: 7px;
+  padding: 5px;
 }
 
 .header_button {

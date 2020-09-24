@@ -19,3 +19,7 @@ a {
 * {
   box-sizing: border-box;
 }
+
+.no_padding {
+  padding: 0;
+}

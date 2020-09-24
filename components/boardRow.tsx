@@ -19,8 +19,8 @@ function BoardRow(props: IBoardRow) {
     return (
         <div className={styles.row}>
             {
-                row.map((r, index) => {
-                    return <BoardCell data={r.parseToJSON()} key={`cell-${index+1}`} />
+                row.map((data, index) => {
+                    return <BoardCell data={data} key={`cell-${index+1}`} />
                 })
             }
         </div>

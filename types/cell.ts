@@ -6,7 +6,7 @@ export default interface ICell {
     getType(): CellContentType,
     getValue(): string,
     setValue(str: string): void,
-    parseToJSON(): ICellProps,
+    printState(): ICellProps,
 }
 
 export interface ICellProps {

@@ -5,21 +5,20 @@ import Level from "./../domain/level";
 import GameBoard from "../domain/gameBoard";
 import MineCell from "./../domain/decorators/mineCell"
 import HintCell from "./../domain/decorators/hintCell"
-import ICell from "./../types/cell";
+import { ICellProps } from "./../types/cell";
 import styles from './../styles/board.module.css';
 import config from "./../config"
 
-function Board() {
-    let board = new GameBoard(config.hard);
-    board.initializeBoard();
+interface IBoard {
+    cells: ICellProps[][]
+}
 
-    let cells = board.getCells();
-    // console.log(cells);
+function Board(props: IBoard) {
 
     return (
-        <div className={styles.container}>
+        <div className={styles.board_container}>
             {
-                cells.map((row, index) => {
+                props.cells.map((row, index) => {
                     return (
                         <div key={`row-${index}`}>
                             <BoardRow data={row} />

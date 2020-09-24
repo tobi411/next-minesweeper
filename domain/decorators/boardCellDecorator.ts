@@ -26,8 +26,8 @@ class BoardCellDecorator implements ICell {
         this.cell.setValue(str);
     }
 
-    parseToJSON() {
-        return this.cell.parseToJSON()
+    printState() {
+        return this.cell.printState()
     }
 }
 
