@@ -12,7 +12,7 @@ export default function Game( props: IGame ) {
     return (
         <Row>
             <Col>
-                <BoardHeader />
+                <BoardHeader flagged={props.data.flaggedNum} timer={props.data.timer}/>
                 <Board cells={props.data.gameBoard.cells}/>
             </Col>
         </Row>

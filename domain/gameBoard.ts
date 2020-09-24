@@ -84,6 +84,13 @@ class GameBoard {
         return cell.getType() === CellContentType.MINE;
     }
 
+    openCell(position: Position) {
+        if (this.isWithinBoard(position)) {
+            let cell = this.cells[position.y][position.x];
+            cell.setIsHidden(false);
+        }
+    }
+
     countAdjacentMines(position: Position): number {
         let i: number;
         let count: number = 0;
@@ -183,7 +190,7 @@ class GameBoard {
         let boardHeight = this.getBoardHeight();
         let boardWidth = this.getBoardWidth();
         let currCells: ICellProps[][] = [];
-        
+
         for (let i = 0; i < boardHeight; i++) {
             currCells[i] = [];
             for (let j = 0; j < boardWidth; j++) {

@@ -9,6 +9,8 @@ export interface Config {
     [key: string]: IConfig
 }
 
+export const defaultLevel = 'medium';
+
 const config: Config = {
     easy: {
         boardWidth: 8,

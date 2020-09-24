@@ -1,14 +1,14 @@
 import Counter from "./counter";
 import Timer from "./timer";
 import styles from "./../styles/board.module.css"
-import { Container, Row, Col, DropdownButton, Dropdown } from "react-bootstrap"
 import { ImCancelCircle } from "react-icons/im"
 import { RiShareFill } from "react-icons/ri"
 import { GiSpeaker } from "react-icons/gi"
 import config from './../config';
 
 interface IBoardHeader {
-    // data: any
+    flagged: number,
+    timer: number
 }
 
 function BoardHeader(props: IBoardHeader) {
@@ -25,8 +25,8 @@ function BoardHeader(props: IBoardHeader) {
                     </select>
                 </div>
                 <div style={{ textAlign: 'center' }} className={'no_padding'}>
-                    <span className={styles.header_icon }><Counter data={27} /></span>
-                    <span className={styles.header_icon}><Timer data={27} /></span>
+                    <span className={styles.header_icon }><Counter data={props.flagged} /></span>
+                    <span className={styles.header_icon}><Timer data={props.timer} /></span>
                 </div>
                 <div style={{ textAlign: 'right' }} className={'no_padding'}>
                     <span className={`${styles.header_button} ${styles.header_icon}`}><GiSpeaker size={'1.6rem'} /></span>

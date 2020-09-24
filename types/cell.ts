@@ -6,7 +6,8 @@ export default interface ICell {
     getType(): CellContentType,
     getValue(): string,
     setValue(str: string): void,
-    printState(): ICellProps,
+    printState(): ICellProps
+    setIsHidden(val: boolean): void,
 }
 
 export interface ICellProps {

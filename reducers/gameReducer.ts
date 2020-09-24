@@ -1,17 +1,17 @@
 import { actionTypes } from './../actions/gameActions'
-import config from "./../config";
+import { defaultLevel } from "./../config";
 import { IGameState } from "./../types/game";
-import GameBoard from "./../domain/gameBoard";
+import GameSingleton from "./../gameSingleton";
 
-let initialDifficulty = 'hard';
+let gameBoard = GameSingleton.getGame();
 
 const initialState: IGameState = {
     name: "Tobi Kehinde",
     gameOver: false,
-    difficulty: initialDifficulty,
+    difficulty: defaultLevel,
     timer: 0,
     flaggedNum: 0,
-    gameBoard: new GameBoard(config[initialDifficulty]).printState() 
+    gameBoard: gameBoard.printState()
 }
 
 function gameReducer(state = initialState, action) {
@@ -26,11 +26,14 @@ function gameReducer(state = initialState, action) {
         case actionTypes.SET_DIFFICULTY:
             return { ...state, ...{ difficulty: action.difficulty } }
 
-        case actionTypes.SET_TIMER:
-            return { ...state, ...{ timer: action.timer } }
+        case actionTypes.TICK_TIMER:
+            return { ...state, ...{ timer: state.timer + 1 } }
 
         case actionTypes.SET_FLAGGED_NUM:
-            return { ...state, ...{ name: action.flaggedNum } }
+            return { ...state, ...{ flaggedNum: action.flaggedNum } }
+
+        case actionTypes.UPDATE_BOARD:
+            return { ...state, ...{ gameBoard: action.gameBoard } }
 
         default:
             return state

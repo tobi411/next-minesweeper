@@ -1,13 +1,17 @@
+import { useDispatch } from 'react-redux'
 import styles from "./../styles/board.module.css";
 import { BsFlagFill } from 'react-icons/bs';
 import CellContentType from '../types/cellContentType';
 import Hint from "./hint";
+import { openCell } from "./../actions/gameActions";
 
 interface IBoardCell {
     data: any
 }
 
 function Cell(props: IBoardCell) {
+    const dispatch = useDispatch();
+
     let data = props.data;
     let content: JSX.Element;
 
@@ -28,7 +32,9 @@ function Cell(props: IBoardCell) {
     }
 
     return (
-        <div className={`${styles.baseCell} ${styles.row} ${backgroundCSS}`}>
+        <div
+            className={`${styles.baseCell} ${styles.row} ${backgroundCSS}`}
+            onClick={() => dispatch(openCell({ x: props.data.position.x, y: props.data.position.y }))}>
             {content}
         </div>
     )
