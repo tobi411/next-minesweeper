@@ -15,12 +15,13 @@
 }
 
 .row {
-  height: 1.5em;
+  height: 1.6em;
 }
 
 .baseCell {
   display: table-cell;
-  width: 1.5em;
+  width: 1.6em;
+  max-width: 1.6em;
   border: outset 2px white;
 }
 
@@ -42,6 +43,10 @@
 
 .hint {
   font-weight: 700;
+}
+
+.mine {
+  width: 1px;
 }
 
 .select {

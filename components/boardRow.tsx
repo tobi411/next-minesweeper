@@ -1,6 +1,5 @@
 import { Row, Col } from "react-bootstrap"
 import BoardCell from "./boardCell";
-// import BoardCell from "../domain/gameCell";
 import Level from "./../domain/level";
 import GameBoard from "../domain/gameBoard";
 import MineCell from "./../domain/decorators/mineCell"

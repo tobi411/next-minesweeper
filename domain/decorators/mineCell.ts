@@ -7,11 +7,14 @@ class MineCell extends BoardCellDecorator{
     constructor(cell: GameCell) {
         super(cell);
         cell.setType(CellContentType.MINE);
+        cell.setValue('*');
     }
 
-    getValue(): string {
-        return '*'; 
-    }
+    // getValue(): string {
+    //     return '*'; 
+    // }
+
+
 
 }
 

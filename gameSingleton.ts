@@ -1,14 +1,17 @@
 import GameBoard from "./domain/gameBoard";
 import config, { defaultLevel } from './config';
 
-let game = null;
+let currGame = null;
 
 export default {
-    getGame: () => {
-        if (game) {
-            return game;
-        } else {
-            return game = new GameBoard(config[defaultLevel])
+    getGame: (): GameBoard => {
+        if (!currGame) {
+            currGame = new GameBoard(config[defaultLevel]);
         }
+        return currGame;
+    },
+    changeGame: (difficulty: string): GameBoard => {
+        currGame = new GameBoard(config[difficulty]);
+        return currGame
     }
 }

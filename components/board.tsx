@@ -7,7 +7,6 @@ interface IBoard {
 }
 
 function Board(props: IBoard) {
-
     return (
         <div className={styles.board_container}>
             {

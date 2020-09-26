@@ -7,21 +7,24 @@ import CellContentType from '../types/cellContentType';
 import ICell from '../types/cell';
 import { IGameBoardState } from '../types/game';
 import { ICellProps } from './../types/cell';
+import { openCell } from '../.history/actions/gameActions_20200924222252';
 
 class GameBoard {
 
     private difficulty: IConfig;
     private cells: ICell[][];
-    private lastUpdated: Date;
+    private minePositions: Position[]
 
     constructor(difficulty: IConfig) {
         this.difficulty = difficulty;
         this.cells = [];
+        this.minePositions = this.generateMinePositions(difficulty.bombNum, difficulty.boardWidth, difficulty.boardHeight);
         this.initializeBoard();
     }
 
     initializeBoard() {
         this.placeEmptyCells();
+        this.placeMines(this.minePositions);
     }
 
     isWithinBoard(position: Position): boolean {
@@ -62,34 +65,111 @@ class GameBoard {
         }
     }
 
-    placeMines(positions: Position[]) {
-        let numPositions = positions.length;
+    generateMinePositions(numMines: number, boardWidth: number, boardHeight: number): Position[] {
+        let mines: Position[] = []
+        let mineMap = {}
+        let maxNumColumns = boardWidth * boardHeight;
+
+        for (let i = 0; (i < numMines) && (i < maxNumColumns); i++) {
+            let x = Math.floor(Math.random() * boardWidth);
+            let y = Math.floor(Math.random() * boardHeight);
+
+            //Ensure only one mine is place at a position
+            if (!mineMap[`${x}_${y}`]) {
+                mineMap[`${x}_${y}`] = true;
+                mines.push(new Position(x, y));
+            } else {
+                numMines += 1;
+            }
+        }
+
+        return mines;
+    }
+
+    placeMines(minePositions: Position[]) {
+        let numPositions = minePositions.length;
 
         for (let i = 0; i < numPositions; i++) {
-            let mine = new MineCell(new BoardCell(positions[i]));
-            this.cells[positions[i].y][positions[i].x] = mine;
+            let mine = new MineCell(new BoardCell(minePositions[i]));
+            mine.setIsHidden(false);
+            this.cells[minePositions[i].y][minePositions[i].x] = mine;
         }
     }
+
+    replaceMine(from: Position, to: Position) {
+        this.placeMines([to]);
+        this.cells[from.y][from.x] = new BoardCell(from);
+    }
+
 
     placeHintCell(position: Position, value: string) {
         if (this.isWithinBoard(position)) {
             let hint = new HintCell(new BoardCell(position), value);
+            hint.setIsHidden(false);
             this.cells[position.y][position.x] = hint;
         }
     }
 
+    openAdjacentEmptyCells(position: Position) {
 
-    isMine(position: Position): boolean {
+        if ((this.getCell(position).getType() !== CellContentType.EMPTY)) {
+            return;
+        }
+
+        let pN = new Position(position.x, position.y).getAdjNorthPosition();
+        this.recurAlongDirection(pN);
+
+        let pNE = new Position(position.x, position.y).getAdjNorthEastPosition();
+        this.recurAlongDirection(pNE);
+
+        let pE = new Position(position.x, position.y).getAdjEastPosition();
+        this.recurAlongDirection(pE);
+
+        let pSE = new Position(position.x, position.y).getAdjSouthEastPosition();
+        this.recurAlongDirection(pSE);
+
+        let pS = new Position(position.x, position.y).getAdjSouthPosition();
+        this.recurAlongDirection(pS);
+
+        let pSW = new Position(position.x, position.y).getAdjSouthWestPosition();
+        this.recurAlongDirection(pSW);
+
+        let pW = new Position(position.x, position.y).getAdjWestPosition();
+        this.recurAlongDirection(pW);
+
+        let pNW = new Position(position.x, position.y).getAdjNorthWestPosition();
+        this.recurAlongDirection(pNW);
+    }
+
+    openEmptyCellsAlongDirection(position: Position) {
+        let p = new Position(position.x, position.y);
+        this.openCell(p);
+        let numAdjacentMines = this.countAdjacentMines(p);
+        if (numAdjacentMines > 0) {
+            this.placeHintCell(p, numAdjacentMines.toString());
+        }
+    }
+
+    recurAlongDirection(position: Position) {
+        if (this.isWithinBoard(position) && (this.getCell(position).getIsHidden())) {
+            this.openEmptyCellsAlongDirection(position);
+            this.openAdjacentEmptyCells(position);
+        }
+    }
+
+
+    isMineCell(position: Position): boolean {
         let cell = this.getCell(position);
         return cell.getType() === CellContentType.MINE;
     }
 
     openCell(position: Position) {
         if (this.isWithinBoard(position)) {
-            let cell = this.cells[position.y][position.x];
+            let cell = this.getCell(position);
             cell.setIsHidden(false);
         }
     }
+
 
     countAdjacentMines(position: Position): number {
         let i: number;
@@ -121,7 +201,7 @@ class GameBoard {
         //----------- Check North Neighbour ------------ 
         let adjNorthPosition = position.getAdjNorthPosition()
         if (this.isWithinBoard(adjNorthPosition)) {
-            if (this.isMine(adjNorthPosition)) {
+            if (this.isMineCell(adjNorthPosition)) {
                 count++;
             }
         }
@@ -129,7 +209,7 @@ class GameBoard {
         //-----------  Check North-East Neighbour ------------ 
         let adjNorthEastPosition = position.getAdjNorthEastPosition();
         if (this.isWithinBoard(adjNorthEastPosition)) {
-            if (this.isMine(adjNorthEastPosition)) {
+            if (this.isMineCell(adjNorthEastPosition)) {
                 count++;
             }
         }
@@ -137,7 +217,7 @@ class GameBoard {
         //----------- Check East Neighbour ------------ 
         let adjEastPosition = position.getAdjEastPosition()
         if (this.isWithinBoard(adjEastPosition)) {
-            if (this.isMine(adjEastPosition)) {
+            if (this.isMineCell(adjEastPosition)) {
                 count++;
             }
         }
@@ -145,7 +225,7 @@ class GameBoard {
         //----------- Check South-East ------------ 
         let adjSouthEastPosition = position.getAdjSouthEastPosition();
         if (this.isWithinBoard(adjSouthEastPosition)) {
-            if (this.isMine(adjSouthEastPosition)) {
+            if (this.isMineCell(adjSouthEastPosition)) {
                 count++;
             }
         }
@@ -153,7 +233,7 @@ class GameBoard {
         //-----------  Check South ------------ 
         let adjSouthPosition = position.getAdjSouthPosition();
         if (this.isWithinBoard(adjSouthPosition)) {
-            if (this.isMine(adjSouthPosition)) {
+            if (this.isMineCell(adjSouthPosition)) {
                 count++;
             }
         }
@@ -162,7 +242,7 @@ class GameBoard {
         let adjSouthWestPosition = position.getAdjSouthWestPosition();
         // Only process this cell if this is a valid one 
         if (this.isWithinBoard(adjSouthWestPosition)) {
-            if (this.isMine(adjSouthWestPosition)) {
+            if (this.isMineCell(adjSouthWestPosition)) {
                 count++;
             }
         }
@@ -170,7 +250,7 @@ class GameBoard {
         //----------- Check West ------------ 
         let adjWestPosition = position.getAdjWestPosition();
         if (this.isWithinBoard(adjWestPosition)) {
-            if (this.isMine(adjWestPosition)) {
+            if (this.isMineCell(adjWestPosition)) {
                 count++;
             }
         }
@@ -178,7 +258,7 @@ class GameBoard {
         //----------- Check North-West ------------ 
         let adjNorthWestPosition = position.getAdjNorthWestPosition();
         if (this.isWithinBoard(adjNorthWestPosition)) {
-            if (this.isMine(adjNorthWestPosition)) {
+            if (this.isMineCell(adjNorthWestPosition)) {
                 count++;
             }
         }
@@ -200,7 +280,7 @@ class GameBoard {
         }
 
         let gameState = {
-            lastUpdated: new Date(),
+            // lastUpdated: new Date(),
             cells: currCells
         }
 

@@ -7,9 +7,9 @@ interface IHint {
 
 export default function Hint(props: IHint) {
     return (
-        <span className={styles.hint}
+        <div className={styles.hint}
             style={{ color: getHintFontColor(parseInt(props.data)) }}>
             {props.data}
-        </span>
+        </div>
     )
 }

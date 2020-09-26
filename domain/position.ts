@@ -12,7 +12,7 @@ class Position {
     }
 
     getAdjNorthEastPosition() {
-        return new Position(this.x + 1, this.y + 1)
+        return new Position(this.x + 1, this.y - 1)
     }
 
     getAdjEastPosition() {

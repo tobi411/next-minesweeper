@@ -8,6 +8,7 @@ export default interface ICell {
     setValue(str: string): void,
     printState(): ICellProps
     setIsHidden(val: boolean): void,
+    getIsHidden(): boolean,
 }
 
 export interface ICellProps {

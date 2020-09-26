@@ -1,7 +1,7 @@
 import { ICellProps } from "./cell";
 
 export interface IGameBoardState {
-    lastUpdated: Date,
+    // lastUpdated: Date,
     cells: ICellProps[][]
 } 
 
@@ -11,6 +11,7 @@ export interface IGameState{
     difficulty: string,
     timer: number,
     flaggedNum: number,
+    numMoves: number,
     gameBoard: IGameBoardState 
 }
 

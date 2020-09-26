@@ -7,7 +7,7 @@ import Game from "../components/game";
 export default function Home() {
 
   const gameState = useSelector((state) => state.gameState)
-
+  
   return (
     <div className={styles.container}>
       <Container fluid>

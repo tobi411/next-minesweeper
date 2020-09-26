@@ -8,7 +8,6 @@ class HintCell extends BoardCellDecorator {
         super(cell);
         cell.setType(CellContentType.HINT);
         this.setValue(value);
-        // cell.setIsHidden(false)
     }
 
     setValue(str: string) {
