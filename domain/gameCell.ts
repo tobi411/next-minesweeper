@@ -51,8 +51,8 @@ class BoardCell implements ICell {
         this.type = t;
     }
 
-    setFlag() {
-        this.isFlagged = true;
+    setIsFlagged(val: boolean) {
+        this.isFlagged = val;
     }
 
     setIsHidden(hidden: boolean) {

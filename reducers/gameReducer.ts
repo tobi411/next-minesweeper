@@ -10,7 +10,7 @@ const initialState: IGameState = {
     gameOver: false,
     difficulty: defaultLevel,
     timer: 0,
-    flaggedNum: 0,
+    numFlagged: 0,
     numMoves: 0,
     gameBoard: gameBoard.printState()
 }
@@ -30,14 +30,14 @@ function gameReducer(state = initialState, action) {
         case actionTypes.TICK_TIMER:
             return { ...state, ...{ timer: action.time } }
 
-        case actionTypes.SET_FLAGGED_NUM:
-            return { ...state, ...{ flaggedNum: action.flaggedNum } }
+        case actionTypes.SET_NUM_FLAGGED:
+            return { ...state, ...{ numFlagged: action.numFlagged } }
 
         case actionTypes.UPDATE_BOARD:
             return { ...state, ...{ gameBoard: action.gameBoard } }
 
-        case actionTypes.INCREMENT_NUM_MOVES:
-            return { ...state, ...{ numMoves: state.numMoves + 1 } }
+        case actionTypes.SET_NUM_MOVES:
+            return { ...state, ...{ numMoves: action.numMoves } }
 
         default:
             return state

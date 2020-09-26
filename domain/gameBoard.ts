@@ -7,7 +7,6 @@ import CellContentType from '../types/cellContentType';
 import ICell from '../types/cell';
 import { IGameBoardState } from '../types/game';
 import { ICellProps } from './../types/cell';
-import { openCell } from '../.history/actions/gameActions_20200924222252';
 
 class GameBoard {
 
@@ -63,6 +62,11 @@ class GameBoard {
                 this.cells[i].push(emptyCell)
             }
         }
+    }
+
+    toggleFlag(position: Position, isFlagged: boolean) {
+        let cell = this.getCell(position);
+        cell.setIsFlagged(isFlagged);
     }
 
     generateMinePositions(numMines: number, boardWidth: number, boardHeight: number): Position[] {
@@ -157,7 +161,6 @@ class GameBoard {
         }
     }
 
-
     isMineCell(position: Position): boolean {
         let cell = this.getCell(position);
         return cell.getType() === CellContentType.MINE;
@@ -186,16 +189,6 @@ class GameBoard {
                      / | \ 
                    /   |  \ 
                 S.W    S   S.E 
-      
-            Cell-->Current Cell (row, col) 
-            N -->  North        (row-1, col) 
-            S -->  South        (row+1, col) 
-            E -->  East         (row, col+1) 
-            W -->  West            (row, col-1) 
-            N.E--> North-East   (row-1, col+1) 
-            N.W--> North-West   (row-1, col-1) 
-            S.E--> South-East   (row+1, col+1) 
-            S.W--> South-West   (row+1, col-1) 
         */
 
         //----------- Check North Neighbour ------------ 

@@ -9,6 +9,7 @@ export default interface ICell {
     printState(): ICellProps
     setIsHidden(val: boolean): void,
     getIsHidden(): boolean,
+    setIsFlagged(val: boolean): void,
 }
 
 export interface ICellProps {

@@ -10,7 +10,7 @@ export interface IGameState{
     gameOver: boolean,
     difficulty: string,
     timer: number,
-    flaggedNum: number,
+    numFlagged: number,
     numMoves: number,
     gameBoard: IGameBoardState 
 }

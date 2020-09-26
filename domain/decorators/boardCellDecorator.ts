@@ -34,6 +34,10 @@ class BoardCellDecorator implements ICell {
         return this.cell.getIsHidden()
     }
 
+    setIsFlagged(val: boolean) {
+        return this.cell.setIsFlagged(val);
+    }
+    
     printState() {
         return this.cell.printState()
     }
