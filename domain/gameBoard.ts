@@ -304,6 +304,14 @@ class GameBoard {
         return numOpenedCells;
     }
 
+    showMineCells() {
+        let numMinePositions = this.minePositions.length;
+
+        for (let i = 0; i < numMinePositions; i++) {
+            this.openCell(this.minePositions[i])
+        }
+    }
+
     printState(): IGameBoardState {
         let boardHeight = this.getBoardHeight();
         let boardWidth = this.getBoardWidth();

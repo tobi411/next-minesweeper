@@ -84,6 +84,7 @@ function* makeMove(action: any) {
         if (gameBoard.isMineCell(cellPosition)) {
             //Opened a mine
             gameBoard.explodeCell(cellPosition);
+            gameBoard.showMineCells();
             yield all([
                 put(stopTimer()),
                 put(setGameOver(true))
@@ -98,7 +99,6 @@ function* makeMove(action: any) {
             }
 
             numMoves++;
-            // yield put(checkForWin)
         }
 
         yield all([
