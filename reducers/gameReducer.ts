@@ -1,18 +1,16 @@
 import { actionTypes } from './../actions/gameActions'
 import { defaultLevel } from "./../config";
 import { IGameState } from "./../types/game";
-import GameSingleton from "./../gameSingleton";
-
-let gameBoard = GameSingleton.getGame();
 
 const initialState: IGameState = {
     name: "Tobi Kehinde",
     gameOver: false,
+    gameWon: false,
     difficulty: defaultLevel,
     timer: 0,
     numFlagged: 0,
     numMoves: 0,
-    gameBoard: gameBoard.printState()
+    gameBoard: null,
 }
 
 function gameReducer(state = initialState, action) {
@@ -23,6 +21,9 @@ function gameReducer(state = initialState, action) {
 
         case actionTypes.SET_GAME_OVER:
             return { ...state, ...{ gameOver: action.gameOver } }
+
+        case actionTypes.SET_GAME_WON:
+            return { ...state, ...{ gameWon: action.gameWon } }
 
         case actionTypes.SET_DIFFICULTY:
             return { ...state, ...{ difficulty: action.difficulty } }

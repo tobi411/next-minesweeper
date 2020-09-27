@@ -9,6 +9,7 @@ class BoardCell implements ICell {
     protected type: CellContentType;
     protected isHidden: boolean;
     protected isFlagged: boolean;
+    protected isExploded: boolean;
 
     constructor(position: Position) {
         this.position = position;
@@ -17,6 +18,7 @@ class BoardCell implements ICell {
         this.value = '_';
         this.type = CellContentType.EMPTY;
         this.isFlagged = false;
+        this.isExploded = false;
     }
 
     getPosition(): Position {
@@ -59,8 +61,8 @@ class BoardCell implements ICell {
         this.isHidden = hidden;
     }
 
-    removeFlag() {
-        this.isFlagged = false;
+    explode() {
+        this.isExploded = true;
     }
 
     printState(): ICellProps {
@@ -74,6 +76,7 @@ class BoardCell implements ICell {
             type: this.type,
             isFlagged: this.isFlagged,
             isHidden: this.isHidden,
+            isExploded: this.isExploded,
         }
     }
 }

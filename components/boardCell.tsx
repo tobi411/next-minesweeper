@@ -15,6 +15,8 @@ function Cell(props: IBoardCell) {
 
     let data = props.data;
     let isHidden = data.isHidden;
+    let isFlagged = data.isFlagged;
+
     let content: JSX.Element;
     let backgroundCSS = '';
 
@@ -24,7 +26,7 @@ function Cell(props: IBoardCell) {
         backgroundCSS = data.isLightTheme ? styles.light_salmon : styles.salmon;
     }
 
-    if (data.isFlagged === true) {
+    if (isFlagged === true) {
         content = <BsFlagFill color={'crimson'} />
     } else {
         if (!isHidden && data.type === CellContentType.HINT) {
@@ -32,14 +34,16 @@ function Cell(props: IBoardCell) {
         }
 
         if (!isHidden && data.type === CellContentType.MINE) {
-            content = <Mine />
+            content = <Mine isExploded={data.isExploded} />
         }
     }
 
     return (
         <div
             className={`${styles.baseCell} ${styles.row} ${backgroundCSS}`}
-            onClick={() => dispatch(makeMove({ x: props.data.position.x, y: props.data.position.y }))}
+            onClick={() => {
+                return dispatch(makeMove({ x: props.data.position.x, y: props.data.position.y }))
+            }}
             onContextMenu={(e) => {
                 e.preventDefault();
                 let position = { x: props.data.position.x, y: props.data.position.y };

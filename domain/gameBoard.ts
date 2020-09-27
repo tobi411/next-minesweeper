@@ -12,7 +12,7 @@ class GameBoard {
 
     private difficulty: IConfig;
     private cells: ICell[][];
-    private minePositions: Position[]
+    private minePositions: Position[];
 
     constructor(difficulty: IConfig) {
         this.difficulty = difficulty;
@@ -48,6 +48,10 @@ class GameBoard {
 
     getCell(position: Position): ICell {
         return this.cells[position.y][position.x];
+    }
+
+    getNumMines() {
+        return this.minePositions.length;
     }
 
     placeEmptyCells() {
@@ -95,14 +99,15 @@ class GameBoard {
 
         for (let i = 0; i < numPositions; i++) {
             let mine = new MineCell(new BoardCell(minePositions[i]));
-            mine.setIsHidden(false);
+            // mine.setIsHidden(false);
             this.cells[minePositions[i].y][minePositions[i].x] = mine;
         }
     }
 
     replaceMine(from: Position, to: Position) {
         this.placeMines([to]);
-        this.cells[from.y][from.x] = new BoardCell(from);
+        let newCell = new BoardCell(from);
+        this.cells[from.y][from.x] = newCell;
     }
 
 
@@ -116,7 +121,7 @@ class GameBoard {
 
     openAdjacentEmptyCells(position: Position) {
 
-        if ((this.getCell(position).getType() !== CellContentType.EMPTY)) {
+        if (this.getCell(position).getType() !== CellContentType.EMPTY) {
             return;
         }
 
@@ -155,7 +160,9 @@ class GameBoard {
     }
 
     recurAlongDirection(position: Position) {
-        if (this.isWithinBoard(position) && (this.getCell(position).getIsHidden())) {
+        if (this.isWithinBoard(position) &&
+            (this.getCell(position).getIsHidden()) &&
+            !(this.getCell(position).getIsFlagged())) {
             this.openEmptyCellsAlongDirection(position);
             this.openAdjacentEmptyCells(position);
         }
@@ -173,6 +180,12 @@ class GameBoard {
         }
     }
 
+    explodeCell(position: Position) {
+        if (this.isWithinBoard(position)) {
+            let cell = this.getCell(position);
+            cell.explode();
+        }
+    }
 
     countAdjacentMines(position: Position): number {
         let i: number;
@@ -259,6 +272,38 @@ class GameBoard {
         return (count);
     }
 
+    getNumFlaggedMines(): number {
+        let numMinePositions = this.minePositions.length;
+        let numFlaggedMines = 0;
+
+        for (let i = 0; i < numMinePositions; i++) {
+            let cell = this.getCell(this.minePositions[i]);
+            if (cell.getIsFlagged()) {
+                numFlaggedMines++;
+            }
+        }
+
+        return numFlaggedMines;
+    }
+
+    getNumOpenedCells(): number {
+        let numOpenedCells = 0;
+        let boardWidth = this.getBoardWidth();
+        let boardHeight = this.getBoardHeight();
+
+        for (let i = 0; i < boardHeight; i++) {
+            for (let j = 0; j < boardWidth; j++) {
+                let position = new Position(j, i);
+                let cell = this.getCell(position);
+                if (cell.getType() !== CellContentType.MINE && !cell.getIsHidden()) {
+                    numOpenedCells++;
+                }
+            }
+        }
+
+        return numOpenedCells;
+    }
+
     printState(): IGameBoardState {
         let boardHeight = this.getBoardHeight();
         let boardWidth = this.getBoardWidth();
@@ -273,7 +318,6 @@ class GameBoard {
         }
 
         let gameState = {
-            // lastUpdated: new Date(),
             cells: currCells
         }
 

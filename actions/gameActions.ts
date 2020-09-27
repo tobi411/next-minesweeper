@@ -3,6 +3,7 @@ import Position from "./../domain/position";
 export const actionTypes = {
     SET_NAME: 'SET_NAME',
     SET_GAME_OVER: 'SET_GAME_OVER',
+    SET_GAME_WON: 'SET_GAME_WON',
     SET_DIFFICULTY: 'SET_DIFFICULTY',
     TICK_TIMER: 'TICK_TIMER',
     START_TIMER: 'START_TIMER',
@@ -14,10 +15,19 @@ export const actionTypes = {
     CHANGE_GAME: 'CHANGE_GAME',
     STOP_TIMER: 'STOP_TIMER',
     RESET_GAME: 'RESET_GAME',
+    CHECK_GAME_WIN: 'CHECK_GAME_WIN',
 }
 
 export function setName(name: string) {
     return { type: actionTypes.SET_NAME, name }
+}
+
+export function setGameOver(gameOver: boolean) {
+    return { type: actionTypes.SET_GAME_OVER, gameOver }
+}
+
+export function setGameWon(gameWon: boolean) {
+    return { type: actionTypes.SET_GAME_WON, gameWon }
 }
 
 export function makeMove(data: any) {
@@ -51,7 +61,7 @@ export function tickTimer(time: number) {
 }
 
 export function setNumMoves(numMoves: number) {
-    return { type: actionTypes.SET_NUM_MOVES }
+    return { type: actionTypes.SET_NUM_MOVES, numMoves }
 }
 
 export function setNumFlagged(numFlagged: number) {
@@ -68,4 +78,8 @@ export function resetGame(difficulty: string) {
 
 export function setDifficulty(difficulty: string) {
     return { type: actionTypes.SET_DIFFICULTY, difficulty }
+}
+
+export function checkForWin() {
+    return { type: actionTypes.CHECK_GAME_WIN }
 }

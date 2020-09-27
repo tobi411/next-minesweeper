@@ -8,10 +8,11 @@ export interface IGameBoardState {
 export interface IGameState{
     name: string,
     gameOver: boolean,
+    gameWon: boolean,
     difficulty: string,
     timer: number,
     numFlagged: number,
     numMoves: number,
-    gameBoard: IGameBoardState 
+    gameBoard: IGameBoardState | null 
 }
 

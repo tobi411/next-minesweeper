@@ -10,7 +10,7 @@ export interface Config {
 
 export const MaxTime = 999;
 
-export const defaultLevel = 'easy';
+export const defaultLevel = 'medium';
 
 const config: Config = {
     easy: {

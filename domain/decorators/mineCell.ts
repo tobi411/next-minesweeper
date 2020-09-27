@@ -9,13 +9,6 @@ class MineCell extends BoardCellDecorator{
         cell.setType(CellContentType.MINE);
         cell.setValue('*');
     }
-
-    // getValue(): string {
-    //     return '*'; 
-    // }
-
-
-
 }
 
 export default MineCell

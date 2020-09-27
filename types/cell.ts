@@ -6,10 +6,12 @@ export default interface ICell {
     getType(): CellContentType,
     getValue(): string,
     setValue(str: string): void,
-    printState(): ICellProps
+    setIsFlagged(val: boolean): void,
     setIsHidden(val: boolean): void,
     getIsHidden(): boolean,
-    setIsFlagged(val: boolean): void,
+    getIsFlagged(): boolean,
+    explode(): void,
+    printState(): ICellProps
 }
 
 export interface ICellProps {
@@ -22,4 +24,5 @@ export interface ICellProps {
     type: CellContentType,
     isFlagged: boolean,
     isHidden: boolean,
+    isExploded: boolean,
 }
