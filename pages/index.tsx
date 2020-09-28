@@ -9,10 +9,10 @@ import { useEffect } from "react";
 
 
 export default function Home() {
-  
+
   let dispatch = useDispatch();
   const gameState = useSelector((state) => state.gameState);
-  
+
   useEffect(() => {
     let gameBoard = GameSingleton.getGame();
     dispatch(updateBoard(gameBoard.printState()))

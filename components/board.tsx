@@ -12,7 +12,7 @@ function Board(props: IBoard) {
             {
                 props.cells.map((row, index) => {
                     return (
-                        <div key={`row-${index}`}>
+                        <div key={`row-${index}`} className="board">
                             <BoardRow data={row} />
                         </div>
                     )

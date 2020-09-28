@@ -1,7 +1,6 @@
 import { ICellProps } from "./cell";
 
 export interface IGameBoardState {
-    // lastUpdated: Date,
     cells: ICellProps[][]
 } 
 

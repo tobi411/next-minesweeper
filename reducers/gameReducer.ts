@@ -1,5 +1,5 @@
 import { actionTypes } from './../actions/gameActions'
-import { defaultLevel } from "./../config";
+import { defaultLevel } from "../config/config";
 import { IGameState } from "./../types/game";
 
 const initialState: IGameState = {

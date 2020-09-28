@@ -1,5 +1,5 @@
 import GameBoard from "./domain/gameBoard";
-import config, { defaultLevel } from './config';
+import config, { defaultLevel } from './config/config';
 
 let currGame = null;
 

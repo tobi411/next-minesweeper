@@ -4,7 +4,7 @@ import styles from "./../styles/board.module.css"
 import { ImCancelCircle } from "react-icons/im"
 import { RiShareFill } from "react-icons/ri"
 import { GiSpeaker } from "react-icons/gi"
-import config from './../config';
+import config from '../config/config';
 import { useDispatch } from "react-redux";
 import { resetGame } from "./../actions/gameActions";
 
@@ -18,7 +18,7 @@ function BoardHeader(props: IBoardHeader) {
     let dispatch = useDispatch();
 
     return (
-        <div className={styles.header_container}>
+        <div className={`${styles.header_container} board-header`}>
             <div className={'no_padding'}>
                 <select name="difficulty" defaultValue={props.difficulty} className={styles.select} onChange={(e) => { dispatch(resetGame(e.currentTarget.value)) }}>
                     {

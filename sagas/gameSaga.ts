@@ -24,7 +24,7 @@ import {
     setGameWon,
     checkForWin,
 } from '../actions/gameActions';
-import config, { MaxTime } from './../config';
+import config, { MaxTime } from '../config/config';
 import Position from './../domain/position';
 import GameSingleton from "./../gameSingleton";
 
@@ -44,7 +44,7 @@ function* runTimer(maxTime: number) {
         }
     }
     finally {
-        console.log('stopped')
+        console.log('timer stopped');
     }
 
 }
@@ -161,8 +161,6 @@ function* changeCurrGame(action: any) {
 }
 
 function* checkGameWin() {
-    console.log(gameBoard.getNumFlaggedMines());
-    console.log(gameBoard.getNumOpenedCells());
     let numFlaggedMines = gameBoard.getNumFlaggedMines();
     let numOpenedCells = gameBoard.getNumOpenedCells();
     let numBoardCells = gameBoard.getBoardWidth() * gameBoard.getBoardHeight();

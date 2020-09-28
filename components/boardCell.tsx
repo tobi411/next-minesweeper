@@ -5,9 +5,10 @@ import CellContentType from '../types/cellContentType';
 import Hint from "./hint";
 import Mine from "./mine";
 import { makeMove, setFlag } from "./../actions/gameActions";
+import { ICellProps } from '../types/cell';
 
 interface IBoardCell {
-    data: any
+    data: ICellProps
 }
 
 function Cell(props: IBoardCell) {
@@ -40,7 +41,7 @@ function Cell(props: IBoardCell) {
 
     return (
         <div
-            className={`${styles.baseCell} ${styles.row} ${backgroundCSS}`}
+            className={`${styles.baseCell} ${styles.row} ${backgroundCSS}`} data-testid="board-cell"
             onClick={() => {
                 return dispatch(makeMove({ x: props.data.position.x, y: props.data.position.y }))
             }}

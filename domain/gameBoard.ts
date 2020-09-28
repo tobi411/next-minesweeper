@@ -1,4 +1,4 @@
-import config, { IConfig } from "./../config";
+import config, { IConfig } from "../config/config";
 import Position from "./position"
 import BoardCell from "./gameCell";
 import MineCell from "./decorators/mineCell";
